@@ -1,12 +1,12 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <Wallet v-on:connectWallet="connectWallet" v-on:fundAccount="fundAccount" :addr="this.addr" :bal="this.bal"/>
+    <Wallet v-on:connectWallet="connectWallet" v-on:fundWallet="fundWallet" :addr="this.addr" :bal="this.bal" :faucetLoading="this.faucetLoading"/>
   </div>
 </template>
 
 <script>
-import Wallet from './components/Wallet.vue'
+import Wallet from './components/WalletPlain.vue'
 
 import * as reach from '@reach-sh/stdlib/ALGO.mjs'
 
@@ -20,29 +20,46 @@ export default {
       acc: undefined,
       addr: undefined,
       balRaw: undefined,
-      bal: undefined
+      bal: undefined,
+      faucetLoading: false
       //currency: undefined
     }
   },
   methods: {
     async updateBalance() {
-      this.balRaw = await reach.balanceOf(this.acc)
-      this.bal = String(reach.formatCurrency(this.balRaw)).substr(0,6)
+      try {
+        this.balRaw = await reach.balanceOf(this.acc)
+        this.bal = String(reach.formatCurrency(this.balRaw)).substr(0,6)
+      } catch (err) {
+        console.log(err)
+      }
+      
     },
     async connectWallet() {
       console.log('conn')
       console.log(this)
       console.log(this.acc)
-      this.acc = await reach.getDefaultAccount()
-      this.addr = await this.acc.getAddress()
-      this.bal = await reach.balanceOf(this.acc)
+      try {
+        this.acc = await reach.getDefaultAccount()
+        this.addr = await this.acc.getAddress()
+        this.bal = await reach.balanceOf(this.acc)
+      }
+      catch (err) {
+        console.log(err)
+      }
       console.log(this.acc)
     },
-    async fundAccount() {
-      const fundAmt = 10
-      await reach.fundFromFaucet(this.acc, reach.parseCurrency(fundAmt))
-      console.log('funded')
-      this.updateBalance()
+    async fundWallet() {
+      this.faucetLoading = true
+      try {
+        const fundAmt = 10
+        await reach.fundFromFaucet(this.acc, reach.parseCurrency(fundAmt))
+        console.log('funded')
+        this.updateBalance()
+      } catch (err) {
+        console.log(err)
+      }
+      this.faucetLoading = false
     }
   }
 }

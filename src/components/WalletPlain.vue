@@ -1,13 +1,14 @@
 <template>
 	<div id="wallet">
-		<div class="row with-hover-label"><img src="../assets/wallet.png" id="wallet-icon" v-on:click="connectWallet"><p class="label">connect wallet</p></div>
+		<img src="../assets/wallet.png" id="wallet-icon" v-on:click="connectWallet">
+		<p>connect wallet</p>
 		<div v-if="addr">
 			<p id="addr">{{addr}}</p>
-			<div class="row"><p id="bal">{{bal}} ALGO</p><p id="faucet-loading" class="label subtext" v-bind:class="{loading: faucetLoading}">waiting for devnet...</p></div>
-			<div id="faucet" class="with-hover-label">
-				<div class="row with-hover-label"><img src="../assets/faucet.png" id="faucet-icon" v-on:click="fundWallet">
-				<p class="label">fund wallet</p></div>
-				<p class="subtext label">(this may take several seconds, devnets only)</p>
+			<p id="bal">{{bal}} ALGO</p>
+			<div id="faucet">
+				<img src="../assets/faucet.png" id="faucet-icon" v-on:click="fundWallet">
+				<p>fund wallet</p>
+				<p>(this may take several seconds, devnets only)</p>
 			</div>
 		</div>
 	</div>
