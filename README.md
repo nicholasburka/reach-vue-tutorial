@@ -1,4 +1,4 @@
-Reach + Vue CLI Tutorial
+## Reach + Vue CLI Tutorial
 by Nicholas Burka
 
 ### Info
@@ -7,17 +7,17 @@ This is a starter web dApp project using Reach & Vue, that connects to & funds a
 
 There's also a branch using [Vuex](), for more complex projects (recommended - if you're new to Vue, check it out after you finish this & have a working dApp).
 
-Reach is a blockchain-agnostic programming language that allows you to write smart contracts in Javascript-like syntax, automatically verify them, and compile them to multiple blockchains. Reach currently compiles to Ethereum and Algorand, and plans to expand to more soon. For more information on Reach, check out the Reach [site](), [docs](), and [Discord server]().
+Reach is a blockchain-agnostic programming language that allows you to write smart contracts in Javascript-like syntax, automatically verify them, and compile them to multiple blockchains. Reach currently compiles to Ethereum and Algorand, and plans to expand to more soon. For more information on Reach, check out the Reach [site](https://reach.sh/), [docs](https://docs.reach.sh/), and [Discord server](https://discord.com/invite/AZsgcXu​).
 
 If you're experienced with Vue & Vuex, then you can skip ahead to where I build the wallet manager using a Vuex store. If you're newer to Vue or to web development in general, I'll walk you through the process of building a wallet manager using Vue - first without Vuex, and then switching over to Vuex. Check the description for the final project code with or without Vuex.
 
 ### Setup & Installation
 
 You'll need
-- [node package manager](), to install packages for our project
-- and [Vue's Command Line Interface](), which helps us scaffold the project, compile vue files, run a development server, and produce minified builds for distribution
+- [node package manager](https://www.npmjs.com/get-npm), to install packages for our project
+- and [Vue's Command Line Interface](https://cli.vuejs.org/guide/installation.html), which helps us scaffold the project, compile vue files, run a development server, and produce minified builds for distribution
 
-- Reach: https://docs.reach.sh/tut-1.html 
+- Reach install info (steps replicated here): https://docs.reach.sh/tut-1.html 
 
 Create your project using vue create proj_name in the command line
 ```
@@ -143,10 +143,15 @@ export default {
 ```
 
 ### Testing
-- Try it: 
-- REACH_CONNECTOR_MODE=ALGO ./reach/reach devnet
-- npm run serve 
-
+Try it:
+- In one shell: 
+```
+REACH_CONNECTOR_MODE=ALGO ./reach/reach devnet
+```
+- And in another:
+```
+npm run serve 
+```
 ### Styling
 - position wallet div in top left corner
 ```
