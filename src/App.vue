@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Wallet from './components/WalletPlain.vue'
+import Wallet from './components/Wallet.vue'
 
 import * as reach from '@reach-sh/stdlib/ALGO.mjs'
 
@@ -36,9 +36,6 @@ export default {
       
     },
     async connectWallet() {
-      console.log('conn')
-      console.log(this)
-      console.log(this.acc)
       try {
         this.acc = await reach.getDefaultAccount()
         this.addr = await this.acc.getAddress()
@@ -47,14 +44,12 @@ export default {
       catch (err) {
         console.log(err)
       }
-      console.log(this.acc)
     },
     async fundWallet() {
       this.faucetLoading = true
       try {
         const fundAmt = 10
         await reach.fundFromFaucet(this.acc, reach.parseCurrency(fundAmt))
-        console.log('funded')
         this.updateBalance()
       } catch (err) {
         console.log(err)
