@@ -1,28 +1,35 @@
 <template>
 	<div id="wallet">
-		<img src="../assets/wallet.png" id="wallet-icon" v-on:click="connectWallet">
+		<div class="row with-hover-label"><img src="../assets/wallet.png" id="wallet-icon" v-on:click="connectWallet"><p class="caption">connect wallet</p></div>
 		<div v-if="addr">
 			<p id="addr">{{addr}}</p>
-			<p id="bal">{{bal}} ALGO</p>
-			<div id="faucet">
-				<img src="../assets/faucet.png" id="faucet-icon" v-on:click="fundAccount">
-				<p>click here to fund your account</p>
-				<p class="subtext">(this may take several seconds, devnets only)</p>
+			<div class="row"><p id="bal">{{bal}} ALGO</p><p id="bal-loading" class="caption subtext" v-bind:class="{loading: balLoading}">waiting for devnet...</p></div>
+			<div id="faucet" class="with-hover-label">
+				<div class="row with-hover-label"><img src="../assets/faucet.png" id="faucet-icon" v-on:click="fundWallet">
+				<p class="caption">fund wallet</p></div>
+				<p class="subtext caption">(this may take several seconds, devnets only)</p>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
+	import {mapState} from 'vuex'
+
 	export default {
-		props: ["addr", "bal"],
+		computed: {
+			...mapState({
+				addr: state => state.addr,
+				bal: state => state.bal,
+				balLoading: state => state.balLoading
+			})
+		},
 		methods: {
 			connectWallet: function() {
-				console.log("conn")
-				this.$emit('connectWallet')
+				this.$store.dispatch('connectWallet')
 			},
-			fundAccount: function() {
-				this.$emit('fundAccount')
+			fundWallet: function() {
+				this.$store.dispatch('fundWallet')
 			}
 		}
 	}
@@ -37,9 +44,33 @@
 	margin-bottom: 0vh;
 	text-align: left;
 }
+#bal-loading {
+	opacity: 0;
+	transition: 1s;
+}
+#bal-loading.loading {
+	opacity: 100;
+	transition: 1s;
+}
+.row {
+	display: flex;
+	flex-direction: row;
+}
+.caption {
+	margin-left: .5vw;
+}
+.with-hover-label .caption {
+	opacity: 0;
+	transition: 1s;
+}
+.with-hover-label:hover > .caption {
+	opacity: 100;
+	transition: 1s;
+}
 p {
 	margin-top: .5vh;
 	margin-bottom: 0vh;
+	align-self: center;
 }
 .subtext {
 	font-size: 1vw;
@@ -59,13 +90,5 @@ p {
 }
 #bal {
 	font-size: 2vw;
-}
-#faucet {
-	color: white;
-	transition: .5s;
-}
-#faucet:hover {
-	color: black;
-	transition: .5s;
 }
 </style>
