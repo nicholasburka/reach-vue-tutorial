@@ -191,6 +191,7 @@ export default {
 }
 </script>
 ```
+
 ### Testing
 To try it, run
 - In one shell: 
@@ -201,6 +202,7 @@ REACH_CONNECTOR_MODE=ALGO ./reach/reach devnet
 ```
 npm run serve 
 ```
+
 ### Styling
 - position wallet div in top left corner
 ```
