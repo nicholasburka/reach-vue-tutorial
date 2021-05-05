@@ -155,6 +155,7 @@ REACH_CONNECTOR_MODE=ALGO ./reach/reach devnet
 ```
 npm run serve 
 ```
+
 ### Styling
 - position wallet div in top left corner
 ```
@@ -287,39 +288,6 @@ async fundWallet() {
 ...
 </style>
 ```
-
-Create a Wallet.vue component file that will connect to an Algorand wallet, display the address and balance
-
-Complex architecture.
-vue create vuecli-reach-tut
-manually select features
-select Vuex, you'll likely also want Router
-
-store/index.js
-- import * as reach 
-- state vars
-- acc - the Reach account abstraction for the wallet, on which Reach functions are called
-- addr - the address of the connected wallet
-- balRaw - the balance of the wallet in atomic units
-- bal - the readable formatted balance of the wallet
-
-- mutations
-- setBalance
- - take the rawBalance and set state.balRaw and state.bal
-- setAcc
-
-- actions
-- updateBalance
-- get the balance of the account and commit it
-
-- connectWallet
-- try to get the default account and its address, then commit these
-
-- fundAccount 
-- call 
-
-App.vue
--Wallet component
 
 Some ideas for extending this project:
 - show wallet errors to the user
