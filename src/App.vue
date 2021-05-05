@@ -19,7 +19,7 @@ export default {
     return {
       acc: undefined,
       addr: undefined,
-      balRaw: undefined,
+      balAtomic: undefined,
       bal: undefined,
       faucetLoading: false
       //currency: undefined
@@ -28,8 +28,8 @@ export default {
   methods: {
     async updateBalance() {
       try {
-        this.balRaw = await reach.balanceOf(this.acc)
-        this.bal = String(reach.formatCurrency(this.balRaw)).substr(0,6)
+        this.balAtomic = await reach.balanceOf(this.acc)
+        this.bal = String(reach.formatCurrency(this.balAtomic)).substr(0,6)
       } catch (err) {
         console.log(err)
       }

@@ -5,11 +5,15 @@ by Nicholas Burka
 
 This is a starter web dApp project using Reach & Vue, that connects to & funds an Algorand wallet. It can be changed to support ETH in two lines of code, or generalized with a little more effort.
 
-There's also a branch using [Vuex](), for more complex projects (recommended - if you're new to Vue, check it out after you finish this & have a working dApp).
+There's also a branch using [Vuex](https://github.com/nicholasburka/reach-vue-tutorial/tree/vuex), for more complex projects (recommended - if you're new to Vue, check it out after you finish this & have a working dApp).
 
-Reach is a blockchain-agnostic programming language that allows you to write smart contracts in Javascript-like syntax, automatically verify them, and compile them to multiple blockchains. Reach currently compiles to Ethereum and Algorand, and plans to expand to more soon. For more information on Reach, check out the Reach [site](https://reach.sh/), [docs](https://docs.reach.sh/), and [Discord server](https://discord.com/invite/AZsgcXu​).
+Reach is a blockchain-agnostic programming language that allows you to write smart contracts in Javascript-like syntax, automatically verify them, and compile them to multiple blockchains. Reach currently compiles to Ethereum and Algorand, and plans to expand to more soon. For more information on Reach, check out the Reach [site](https://reach.sh/), [docs](https://docs.reach.sh/), and [Discord server](https://discord.com/invite/AZsgcXu​). If you want to see a live Reach project with Vue, check out ['Serious' Rock Paper Scissors](https://nicholasburka.github.io/rps-gui/dist/index.html)
 
-If you're experienced with Vue & Vuex, then you can skip ahead to where I build the wallet manager using a Vuex store. If you're newer to Vue or to web development in general, I'll walk you through the process of building a wallet manager using Vue - first without Vuex, and then switching over to Vuex. Check the description for the final project code with or without Vuex.
+If you're experienced with Vue & Vuex, then you can skip ahead to where I build the wallet manager using a Vuex store. If you're newer to Vue or to web development in general, I'll walk you through the process of building a wallet manager using Vue - first without Vuex, and then switching over to Vuex. 
+
+The main files of interest are:
+- [src/App.vue](https://github.com/nicholasburka/reach-vue-tutorial/blob/vue/src/App.vue)
+- and [src/components/Wallet.vue](https://github.com/nicholasburka/reach-vue-tutorial/blob/vue/src/components/Wallet.vue)
 
 ### Setup & Installation
 
@@ -65,7 +69,6 @@ methods: {
       } catch (err) {
         console.log(err)
       }
-      
     },
     async connectWallet() {
       try {
@@ -164,7 +167,7 @@ npm run serve
 	text-align: left;
 }
 ```
-- Write classes:
+- Write CSS classes:
  - row : place items side by side using flex
  - with-hover-label : reveal button icon labels on hover
  - label : label to reveal on hover
@@ -211,6 +214,7 @@ p {
 }
 ```
 - assign classes / ID's to elements
+- add row divs to align images and labels
 ```
 <template>
 	<div id="wallet">
