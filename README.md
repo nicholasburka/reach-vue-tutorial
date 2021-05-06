@@ -12,10 +12,8 @@ This branch uses Vuex, handling all wallet state within the Vuex store in src/st
 ### Setup & Installation
 
 You'll need
-- [node package manager](https://www.npmjs.com/get-npm), to install packages for our project
-- and [Vue's Command Line Interface](https://cli.vuejs.org/guide/installation.html), which helps us scaffold the project, compile vue files, run a development server, and produce minified builds for distribution
-
-- Reach install info (steps replicated here): https://docs.reach.sh/tut-1.html 
+- [node package manager](https://www.npmjs.com/get-npm)
+- and [Vue's Command Line Interface](https://cli.vuejs.org/guide/installation.html), which scaffolds the project, compiles vue files, runs a development server, and produces minified builds for distribution
 
 Create your project using vue create proj_name in the command line
 ```
@@ -23,7 +21,7 @@ vue create vuecli-reach-tut
 ```
 Manually select your options, and choose Vuex and whatever other options you want, like Vue Router. 
 
-cd into the project, and install the Reach executable and Reach front-end stdlib
+cd into the project, and install the Reach executable and Reach front-end stdlib (check the [Reach docs](https://docs.reach.sh/tut-1.html) for more info)
 ```
 cd vuecli-reach-tut 
 
@@ -138,7 +136,7 @@ async fundWallet({state, commit, dispatch}) {
 	</div>
 </template>
 ```
-- to get the state from store within the Wallet component, we import & call [mapState](https://vuex.vuejs.org/guide/state.html#the-mapstate-helper) to the computed variables of the component
+- to get the state from store within the Wallet component, import & call [mapState](https://vuex.vuejs.org/guide/state.html#the-mapstate-helper) to the computed variables of the component
 ```
 <script>
 	import {mapState} from 'vuex'
@@ -147,8 +145,7 @@ async fundWallet({state, commit, dispatch}) {
 		computed: {
 			...mapState({
 				addr: state => state.addr,
-				bal: state => state.bal,
-				balLoading: state => state.balLoading
+				bal: state => state.bal
 			})
 		},
 		methods: {
