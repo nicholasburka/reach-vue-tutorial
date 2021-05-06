@@ -18,10 +18,8 @@ The main files of interest are:
 ### Setup & Installation
 
 You'll need
-- [node package manager](https://www.npmjs.com/get-npm), to install packages for our project
-- and [Vue's Command Line Interface](https://cli.vuejs.org/guide/installation.html), which helps us scaffold the project, compile vue files, run a development server, and produce minified builds for distribution
-
-- Reach install info (steps replicated here): https://docs.reach.sh/tut-1.html 
+- [node package manager](https://www.npmjs.com/get-npm)
+- and [Vue's Command Line Interface](https://cli.vuejs.org/guide/installation.html), which scaffolds the project, compiles vue files, runs a development server, and produces minified builds for distribution
 
 Create your project using vue create proj_name in the command line
 ```
@@ -29,7 +27,7 @@ vue create vuecli-reach-tut
 ```
 You can use the default build, but if you want to flesh your project out later on, manually select options and add Vuex and Vue Router. There's no harm if you never use them.
 
-cd into the project, and install the Reach executable and Reach front-end stdlib
+cd into the project, and install the Reach executable and Reach front-end stdlib (check the [Reach docs](https://docs.reach.sh/tut-1.html) for more info)
 ```
 cd vuecli-reach-tut 
 
@@ -47,39 +45,49 @@ see the [Accounts page of the Reach front-end docs](https://docs.reach.sh/ref-fr
 import * as reach from '@reach-sh/stdlib/ALGO.mjs'
 ```
 - Create the data and methods that use the Reach standard library to connect to the wallet
-- data: acc, addr, balRaw, and bal
 ```
 data: () => {
     return {
       acc: undefined,
       addr: undefined,
-      balRaw: undefined,
+      balAtomic: undefined,
       bal: undefined,
    	}
 }
 ```
-*note: do not use () => notation for Vue methods - arrow functions do not include 'this' in their scope*
-- methods: updateBalance, connectWallet, fundWallet
+- acc - the Reach account interface for the wallet, on which Reach functions are called
+- addr - the address of the connected wallet
+- balAtomic - the balance of the wallet in atomic units
+- bal - the readable formatted balance of the wallet
+*note: () => arrow function notation works for data, but do not use arrow functions for Vue methods - arrow functions do not include 'this' in their scope*
+
 ```
 methods: {
     async updateBalance() {
       try {
-        this.balRaw = await reach.balanceOf(this.acc)
-        this.bal = String(reach.formatCurrency(this.balRaw)).substr(0,6)
+        this.balAtomic = await reach.balanceOf(this.acc)
+        this.bal = reach.formatCurrency(this.balAtomic)
       } catch (err) {
         console.log(err)
       }
     },
+```
+- get the balance of the current account interface, and convert the atomic balance to readable ALGO units
+- many Reach functions that interface with cryptowallets are asynchronous, and try/catch blocks are helpful for handling the errors that may come up, for example if a network/devnet is inaccessible
+```
     async connectWallet() {
       try {
         this.acc = await reach.getDefaultAccount()
         this.addr = await this.acc.getAddress()
-        this.bal = await reach.balanceOf(this.acc)
+        this.updateBalance()
       }
       catch (err) {
         console.log(err)
       }
     },
+```
+- connect to the default account, and get the account's address and balance
+```
     async fundWallet() {
       try {
         const fundAmt = 10
@@ -91,6 +99,8 @@ methods: {
     }
   }
 ```
+- fund the wallet with 10 Algos from the devnet faucet and update the balance
+
 
 ### Building the UI to Connect, Display, and Fund a Wallet
 Wallet.vue component to display the interface for our Wallet
@@ -116,10 +126,11 @@ Wallet.vue component to display the interface for our Wallet
 ```
 - props: addr & bal
 - methods: connectWallet -> emit, fundAccount -> emit
+- calling emit runs any code that the parent component has attached to this component's 'connectWallet' or 'fundWallet' events
 ```
 <script>
 	export default {
-		props: ["addr", "bal", "faucetLoading"],
+		props: ["addr", "bal"],
 		methods: {
 			connectWallet: function() {
 				console.log("conn")
@@ -132,6 +143,8 @@ Wallet.vue component to display the interface for our Wallet
 	}
 </script>
 ```
+
+Now we integrate Wallet.vue into App.vue
 - import Wallet.vue to App.vue, and add it to App.vue's components object
 ```
 import Wallet from './components/Wallet.vue'
@@ -144,9 +157,18 @@ export default {
     Wallet
   },
 ```
+- add the Wallet component to the template, provide the wallet props to the Wallet component, and attach to its events
+```
+<template>
+  <div id="app">
+    <img alt="Vue logo" src="./assets/logo.png">
+    <Wallet v-on:connectWallet="connectWallet" v-on:fundWallet="fundWallet" :addr="this.addr" :bal="this.bal"/>
+  </div>
+</template>
+```
 
 ### Testing
-Try it:
+To try it, run
 - In one shell: 
 ```
 REACH_CONNECTOR_MODE=ALGO ./reach/reach devnet
@@ -240,7 +262,7 @@ data: () => {
     return {
       acc: undefined,
       addr: undefined,
-      balRaw: undefined,
+      balAtomic: undefined,
       bal: undefined,
       faucetLoading: false
     }
@@ -295,6 +317,7 @@ Some ideas for extending this project:
 - make the faucet rain coins instead of displaying "loading..."
 - generalize to allow either ETH or ALGO
 - run the RPS tutorial program
+- use a style library like Vuetify
 
 Keep in mind:
 - ./reach update & update your @reach-sh/stdlib often (I made a bash script to update my project)
