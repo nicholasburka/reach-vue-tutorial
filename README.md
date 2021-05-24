@@ -124,7 +124,8 @@ Wallet.vue component to display the interface for our Wallet
 	</div>
 </template>
 ```
-- props: addr & bal
+The script for the component:
+- props (inherited state): addr & bal
 - methods: connectWallet -> emit, fundAccount -> emit
 - calling emit runs any code that the parent component has attached to this component's 'connectWallet' or 'fundWallet' events
 ```
@@ -133,7 +134,6 @@ Wallet.vue component to display the interface for our Wallet
 		props: ["addr", "bal"],
 		methods: {
 			connectWallet: function() {
-				console.log("conn")
 				this.$emit('connectWallet')
 			},
 			fundWallet: function() {
