@@ -33,8 +33,8 @@ In src/App.vue
 - Delete the HelloWorld component from the template, import, and components
 
 ### Connecting a Wallet using Reach
-see the [Accounts page of the Reach front-end docs](https://docs.reach.sh/ref-frontends-js-acc.html) for API info, and check out the [Vuex core concepts](https://vuex.vuejs.org/guide/state.html) as needed if this is new to you
-- in src/store/index.js import the Reach library for Algorand
+See the [Accounts page of the Reach front-end docs](https://docs.reach.sh/ref-frontends-js-acc.html) for API info, and check out the [Vuex core concepts](https://vuex.vuejs.org/guide/state.html) as needed if this is new to you
+- in src/store/index.js, import the Reach Algorand library
 ```
 import * as reach from '@reach-sh/stdlib/ALGO.mjs'
 ```
@@ -277,6 +277,56 @@ p {
 </template>
 ```
 
+Extra sauce: display "loading..." text while awaiting funds from the devnet faucet
+
+In src/store/index.js:
+state:
+```
+export default new Vuex.Store({
+  state: {
+    ...
+    balLoading: false
+  },
+```
+mutations:
+```
+  mutations: {
+    ...
+    setBalLoading(state, isBalLoading) {
+        state.balLoading = isBalLoading
+    }
+  },
+```
+actions: fundWallet:
+```
+async fundWallet({state, commit, dispatch}) {
+        commit('setBalLoading', true)
+        try {
+            const fundAmt = 10
+            await reach.fundFromFaucet(state.acc, reach.parseCurrency(fundAmt))
+            dispatch('updateBalance')
+        } catch (err) {
+            console.log(err)
+        }
+        commit('setBalLoading', false)
+    }
+```
+In src/components/Wallet.vue:
+```
+        <div v-if="addr">
+			<p id="addr">{{addr}}</p>
+			<div class="row">
+				<p id="bal">{{bal}} ALGO</p>
+				<p id="bal-loading" class="caption subtext" v-bind:class="{loading: balLoading}">waiting for devnet...</p>
+			</div>
+			<div id="faucet" class="with-hover-label">
+				<div class="row with-hover-label"><img src="../assets/faucet.png" id="faucet-icon" v-on:click="fundWallet">
+				<p class="caption">fund wallet</p></div>
+				<p class="subtext caption">(this may take several seconds, devnets only)</p>
+			</div>
+		</div>
+```
+
 Some ideas for extending this project:
 - show wallet errors to the user
 - a button to copy your wallet address to the clipboard
@@ -285,4 +335,4 @@ Some ideas for extending this project:
 - run the RPS tutorial program
 
 Keep in mind:
-- ./reach update & update your @reach-sh/stdlib often (I made a bash script to update my project)
+- ./reach update & update your @reach-sh/stdlib often (I use a bash script to update both)
