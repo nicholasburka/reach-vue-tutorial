@@ -3,7 +3,7 @@ by Nicholas Burka
 
 ### Info
 
-This is a starter web dApp project using Reach & Vue, that connects to & funds an Algorand wallet. It can be changed to support ETH in two lines of code, or generalized with a little more effort. [Video link](https://www.youtube.com/watch?v=6PM9v_n40fg)
+This is a starter web dApp project using Reach & Vue, that connects to & funds an Algorand wallet. It can be changed to support ETH in two lines of code, or generalized with a little more effort. [Video link](https://www.youtube.com/watch?v=ui1vYjZ2lRs)
 
 There's also a branch using [Vuex](https://github.com/nicholasburka/reach-vue-tutorial/tree/vuex), for more complex projects (recommended - if you're new to Vue, check it out after you finish this & have a working dApp).
 
