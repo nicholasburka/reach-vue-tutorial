@@ -188,7 +188,25 @@ export default {
 }
 </script>
 ```
-
+Basic starter styling
+```
+#wallet {
+	position: absolute;
+	top: 1vh;
+	left: 1vw;
+	text-align: left;
+}
+#wallet-icon {
+	max-height: 10vh;
+	width: auto;
+}
+#faucet-icon {
+	max-height: 7vh;
+	width: auto;
+}
+```
+- wallet component in top left of page
+- images with max-height + auto width to resize while keeping aspect ratio 
 ### Testing
 To try it, run
 - In one shell: 
@@ -201,15 +219,15 @@ npm run serve
 ```
 
 ### Styling
-- position wallet div in top left corner
+- element margins
 ```
 #wallet {
 	position: absolute;
 	top: 1vh;
 	left: 1vw;
+	text-align: left;
 	margin-top: .5vh;
 	margin-bottom: 0vh;
-	text-align: left;
 }
 ```
 - Write CSS classes:
@@ -248,8 +266,8 @@ p {
 }
 #faucet-icon {
 	max-height: 7vh;
-	left: 2vw;
 	width: auto;
+	left: 2vw;
 }
 #addr {
 	font-size: .5vw;
