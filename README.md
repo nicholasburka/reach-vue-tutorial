@@ -5,7 +5,7 @@ by Nicholas Burka
 
 This is a starter web dApp project using Reach & Vue, that connects to & funds an Algorand wallet. It can be changed to support ETH in two lines of code, or generalized with a little more effort. [Video link](https://www.youtube.com/watch?v=ui1vYjZ2lRs)
 
-There's also a branch using [Vuex](https://github.com/nicholasburka/reach-vue-tutorial/tree/vuex), for more complex projects (recommended - if you're new to Vue, check it out after you finish this & have a working dApp).
+There's also a [Vuex branch](https://github.com/nicholasburka/reach-vue-tutorial/tree/vuex), for more complex projects (recommended - if you're new to Vue, check it out after you finish this & have a working dApp).
 
 Reach is a blockchain-agnostic programming language that allows you to write smart contracts in Javascript-like syntax, automatically verify them, and compile them to multiple blockchains. Reach currently compiles to Ethereum and Algorand, and plans to expand to more soon. For more information on Reach, check out the Reach [site](https://reach.sh/), [docs](https://docs.reach.sh/), and [Discord server](https://discord.com/invite/AZsgcXu​). If you want to see a live Reach project with Vue, check out ['Serious' Rock Paper Scissors](https://nicholasburka.github.io/rps-gui/dist/index.html)
 
@@ -143,6 +143,25 @@ The script for the component:
 	}
 </script>
 ```
+Basic starter styling
+```
+#wallet {
+	position: absolute;
+	top: 1vh;
+	left: 1vw;
+	text-align: left;
+}
+#wallet-icon {
+	max-height: 10vh;
+	width: auto;
+}
+#faucet-icon {
+	max-height: 7vh;
+	width: auto;
+}
+```
+- wallet component in top left of page
+- images with max-height + auto width to resize while keeping aspect ratio 
 
 Now we integrate Wallet.vue into App.vue
 - import Wallet.vue to App.vue, and add it to App.vue's components object
@@ -218,16 +237,6 @@ p {
 }
 .subtext {
 	font-size: 1vw;
-}
-#wallet-icon {
-	max-height: 10vh;
-	width: auto;
-	display: block;
-}
-#faucet-icon {
-	max-height: 7vh;
-	left: 2vw;
-	width: auto;
 }
 #addr {
 	font-size: .5vw;
