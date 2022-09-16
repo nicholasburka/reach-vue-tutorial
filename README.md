@@ -1,6 +1,8 @@
 ## Reach + Vue CLI Tutorial
 by Nicholas Burka
 
+*note - while i believe the frame of this project still has value and good program structure, all of Reach, Algorand, and Ethereum have updated significantly since it's release, meaning this code perhaps likewise needs an update. i would like to do this but don't know when. use at your own risk and feel free to log issues along the way.*
+
 ### Info
 
 This is a starter web dApp project using Reach & Vue, that connects to & funds an Algorand wallet. It can be changed to support ETH in two lines of code, or generalized with a little more effort. [Video link](https://www.youtube.com/watch?v=ui1vYjZ2lRs)
