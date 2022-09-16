@@ -44,7 +44,10 @@ In src/App.vue
 see the [Accounts page of the Reach front-end docs](https://docs.reach.sh/ref-frontends-js-acc.html) for API info
 - import the Reach library for Algorand
 ```
-import * as reach from '@reach-sh/stdlib/ALGO.mjs'
+import { loadStdlib } from '@reach-sh/stdlib';
+const reach = loadStdlib("ALGO"); //or ETH
+//old syntax below - fixed by stanleyseow
+//import * as reach from '@reach-sh/stdlib/ALGO.mjs'
 ```
 - Create the data and methods that use the Reach standard library to connect to the wallet
 ```
