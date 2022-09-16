@@ -8,7 +8,10 @@
 <script>
 import Wallet from './components/Wallet.vue'
 
-import * as reach from '@reach-sh/stdlib/ALGO.mjs'
+//updated syntax, fixed by stanleyseow
+//import * as reach from '@reach-sh/stdlib/ALGO.mjs'
+import { loadStdlib } from '@reach-sh/stdlib';
+const reach = loadStdlib("ALGO");
 
 export default {
   name: 'App',
